@@ -629,6 +629,15 @@ SplitRequestPtr InstanceImpl::makeRequest(Common::Redis::RespValuePtr&& request,
     return nullptr;
   }
 
+  if (command_name == Common::Redis::SupportedCommands::select()) {
+    // Respond to SELECT locally.
+    Common::Redis::RespValuePtr ok(new Common::Redis::RespValue());
+    ok->type(Common::Redis::RespType::SimpleString);
+    ok->asString() = "OK";
+    callbacks.onResponse(std::move(ok));
+    return nullptr;
+  }
+
   if (command_name == Common::Redis::SupportedCommands::time()) {
     // Respond to TIME locally.
     Common::Redis::RespValuePtr time_resp(new Common::Redis::RespValue());

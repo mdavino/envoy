@@ -85,6 +85,11 @@ struct SupportedCommands {
    * @return quit command
    */
   static const std::string& quit() { CONSTRUCT_ON_FIRST_USE(std::string, "quit"); }
+  
+  /**
+   * @return select command
+   */
+  static const std::string& select() { CONSTRUCT_ON_FIRST_USE(std::string, "select"); }
 
   /**
    * @return commands which alters the state of redis
